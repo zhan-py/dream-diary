@@ -117,7 +117,8 @@ const editing = ref(false);
                 <p class="mb-2 font-bold ml-2 mt-1">Comments:</p>
                 <div class="p-2" v-for="comment in dream.comments" :key="comment.id">
                   <div class="flex space-x-1 mb-1 w-full">
-                    <img :src="comment.user.avatar" class="w-6 h-6 rounded-full" alt="">
+                    <img v-if="comment.user.avatar" :src="comment.user.avatar" class="w-6 h-6 rounded-full" alt="">
+                    <img v-else src="https://via.placeholder.com/200x200.png/00ccbb?text=people+consequatur" class="w-8 h-8 rounded-full inline mr-1" alt="">
                     <div class="flex flex-col">
                       <p class="font-bold">{{ comment.user.name }}</p>
                       <p class="w-full">{{ comment.content }}</p>   
@@ -125,7 +126,7 @@ const editing = ref(false);
                   </div>
                 </div>
               </div>
-              <p v-else class="bg-gray-50" p-1>No comments yet. Share yours!</p>
+              <p v-else class="bg-gray-50 p-2" >No comments yet. Share yours!</p>
                 
             </div>
         </div>
