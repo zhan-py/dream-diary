@@ -20,7 +20,7 @@ const showingNavigationDropdown = ref(false);
                         <div class="flex">
                             <!-- Logo -->
                             <div class="shrink-0 flex items-center">
-                                <Link :href="route('welcome')">
+                                <Link :href="route('dashboard')">
                                     <ApplicationLogo
                                         class="block h-9 w-auto fill-current text-gray-800"
                                     />
@@ -29,7 +29,7 @@ const showingNavigationDropdown = ref(false);
 
                             <!-- Navigation Links -->
                             <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                                <NavLink :href="route('welcome')" :active="route().current('welcome')">
+                                <NavLink :href="route('dashboard')" :active="route().current('dashboard')">
                                     Welcome
                                 </NavLink>
                                 <NavLink :href="route('dreams.index')" :active="route().current('dreams.index')">
@@ -42,12 +42,14 @@ const showingNavigationDropdown = ref(false);
                             <!-- Settings Dropdown -->
                             <div class="ml-3 relative">
                                 <Dropdown align="right" width="48">
-                                    <template #trigger>
-                                        <span class="inline-flex rounded-md">
+                                    <template #trigger>                                        
+                                        <span class="inline-flex rounded-md">                   
                                             <button
                                                 type="button"
                                                 class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150"
                                             >
+                                                <img v-if="$page.props.auth.user.avatar" :src="$page.props.auth.user.avatar" class="w-8 h-8 rounded-full mr-1" alt="">
+                                                
                                                 {{ $page.props.auth.user.name }}
 
                                                 <svg
@@ -115,7 +117,7 @@ const showingNavigationDropdown = ref(false);
                     class="sm:hidden"
                 >
                     <div class="pt-2 pb-3 space-y-1">
-                        <ResponsiveNavLink :href="route('welcome')" :active="route().current('welcome')">
+                        <ResponsiveNavLink :href="route('dashboard')" :active="route().current('dashboard')">
                             Welcome
                         </ResponsiveNavLink>
                         <ResponsiveNavLink :href="route('dreams.index')" :active="route().current('dreams.index')">

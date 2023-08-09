@@ -54,12 +54,11 @@ const editing = ref(false);
  
 <template>
     <div class="p-6 flex space-x-2">
-        <svg class="h-6 w-6 text-primary -scale-x-100" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456zM16.894 20.567L16.5 21.75l-.394-1.183a2.25 2.25 0 00-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 001.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 001.423 1.423l1.183.394-1.183.394a2.25 2.25 0 00-1.423 1.423z"></path>
-        </svg>
         <div class="flex-1">
             <div class="flex justify-between items-center">
                 <div>
+                    <img v-if="dream.user.avatar" :src="dream.user.avatar" class="w-8 h-8 rounded-full inline mr-1" alt="">
+                    <img v-else src="https://via.placeholder.com/200x200.png/00ccbb?text=people+consequatur" class="w-8 h-8 rounded-full inline mr-1" alt="">
                     <span class="text-gray-800">{{ dream.user.name }}</span>
                     <small class="ml-2 text-sm text-gray-600">{{ dayjs(dream.created_at).fromNow() }}</small>
                     <small v-if="dream.created_at !== dream.updated_at" class="text-sm text-gray-600"> &middot; edited</small>
@@ -74,7 +73,7 @@ const editing = ref(false);
                         </button>
                     </template>
                     <template #content>
-                        <button class="block w-full px-4 py-2 text-left text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:bg-gray-100 transition duration-150 ease-in-out" @click="editing = true">
+                        <button class="block px-4 py-2 text-left text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:bg-gray-100 transition duration-150 ease-in-out" @click="editing = true">
                             Edit
                         </button>
                         <DropdownLink as="button" :href="route('dreams.destroy', dream.id)" method="delete">
@@ -104,29 +103,29 @@ const editing = ref(false);
               </button>
               <p>{{ totalLikes }}</p>
             </div>
-
-
-            <p class="mt-4 mb-1 text-sm">Add Your Comment:</p>
-            <form @submit.prevent="formComment.post(route('comments.store', { dream: dream.id }), { onSuccess: () => formComment.reset() })">
+           
+            <form class="mt-4" @submit.prevent="formComment.post(route('comments.store', { dream: dream.id }), { onSuccess: () => formComment.reset() })">
               <input type="hidden" name="dream_id" :value="dream.id">
-              <textarea class="w-full p-2 border rounded-md placeholder:text-sm" v-model="formComment.content" rows="1" placeholder="leave your comment here"></textarea>
+              <textarea class="p-2 border placeholder:text-sm block w-full border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm" v-model="formComment.content" rows="1" placeholder="leave your comment here"></textarea>
               <InputError :message="formComment.errors.message" class="mt-2" />
-              <br>
-              <PrimaryButton class="mb-4">Comment</PrimaryButton>
+              <PrimaryButton class="mb-4 mt-4">Comment</PrimaryButton>
             </form>
 
 
-            <div class="text-sm rounded border border-primary p-3">
+            <div class="text-sm rounded border border-gray-300">
               <div v-if="dream.comments.length">
-                <p class="mb-2">Comments:</p>
-                <div class="bg-gray-50" v-for="comment in dream.comments" :key="comment.id">
-                  <div class="flex space-x-4 mb-1">
-                    <p class="">{{ comment.user.name }}</p>
-                    <p>{{ comment.content }}</p>                
+                <p class="mb-2 font-bold ml-2 mt-1">Comments:</p>
+                <div class="p-2" v-for="comment in dream.comments" :key="comment.id">
+                  <div class="flex space-x-1 mb-1 w-full">
+                    <img :src="comment.user.avatar" class="w-6 h-6 rounded-full" alt="">
+                    <div class="flex flex-col">
+                      <p class="font-bold">{{ comment.user.name }}</p>
+                      <p class="w-full">{{ comment.content }}</p>   
+                    </div>             
                   </div>
                 </div>
               </div>
-              <p v-else>No comments yet. Share yours!</p>
+              <p v-else class="bg-gray-50" p-1>No comments yet. Share yours!</p>
                 
             </div>
         </div>

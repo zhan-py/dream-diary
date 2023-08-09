@@ -19,8 +19,8 @@ class DreamController extends Controller
     {
       return Inertia::render('Dreams/Index', [
         'dreams' => Dream::with([
-            'user:id,name', 
-            'comments.user:id,name',
+            'user:id,name,avatar', 
+            'comments.user:id,name,avatar',
             'likes'
         ])->withCount('likes')
         ->latest()
