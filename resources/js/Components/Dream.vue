@@ -53,7 +53,7 @@ const editing = ref(false);
 </script>
  
 <template>
-    <div class="p-6 flex space-x-2">
+    <div class="p-6 flex mb-6">
         <div class="flex-1">
             <div class="flex justify-between items-center">
                 <div>
@@ -118,7 +118,7 @@ const editing = ref(false);
                 <div class="p-2" v-for="comment in dream.comments" :key="comment.id">
                   <div class="flex space-x-1 mb-1 w-full">
                     <img v-if="comment.user.avatar" :src="comment.user.avatar" class="w-6 h-6 rounded-full" alt="">
-                    <img v-else src="https://via.placeholder.com/200x200.png/00ccbb?text=people+consequatur" class="w-8 h-8 rounded-full inline mr-1" alt="">
+                    <img v-else src="https://via.placeholder.com/200x200.png/00ccbb?text=people+consequatur" class="w-6 h-6 rounded-full inline mr-1" alt="">
                     <div class="flex flex-col">
                       <p class="font-bold">{{ comment.user.name }}</p>
                       <p class="w-full">{{ comment.content }}</p>   

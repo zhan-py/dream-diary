@@ -4,7 +4,7 @@ import { Link } from '@inertiajs/vue3';
 </script>
 
 <template>
-    <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100">
+    <div class="bg-primary bg-cover bg-center bg-no-repeat h-screen bg-bgPic bgPic min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0">
         <div>
             <Link href="/">
                 <ApplicationLogo class="w-20 fill-current text-gray-500" />
@@ -18,3 +18,9 @@ import { Link } from '@inertiajs/vue3';
         </div>
     </div>
 </template>
+
+<style>
+  .bgPic {
+      background-image: url("../../images/background.jpg");
+  }
+</style>

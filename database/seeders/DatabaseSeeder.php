@@ -22,5 +22,10 @@ class DatabaseSeeder extends Seeder
         // ]);
 
         User::factory(10)->create();
+        $this->call([
+          DreamSeeder::class,
+          CommentSeeder::class,
+          LikeSeeder::class
+        ]);
     }
 }
