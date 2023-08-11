@@ -46,6 +46,7 @@ Route::resource('comments', CommentController::class)
 //     ->middleware(['auth', 'verified']);
 
 Route::post('dreams/{dream}/like', [LikeController::class, 'toggle']);  
+Route::get('dreams/{dream}/check', [LikeController::class, 'check']); 
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
