@@ -3,14 +3,10 @@ import Dropdown from '@/Components/Dropdown.vue';
 import DropdownLink from '@/Components/DropdownLink.vue';
 import InputError from '@/Components/InputError.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
-
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
-
 import { useForm } from '@inertiajs/vue3';
-import { ref } from 'vue';
-
-import { usePut } from '@inertiajs/inertia-vue3';
+import { ref, onMounted } from 'vue';
 
 dayjs.extend(relativeTime);
 
@@ -24,32 +20,34 @@ const formComment = useForm({
     content: '',
 });
 
-
 const editing = ref(false);
 
+const isLiked = ref(false);
+const totalLikes = ref(props.dream.likes_count);
 
-        const isLiked = ref(false);
-        const totalLikes = ref(props.dream.likes_count);
+onMounted(async () => {
+    const response = await fetch(`/dreams/${props.dream.id}/check`);
+    if (response.ok) {
+        const data = await response.json();
+        isLiked.value = data.is_liked;
+    }
+});
 
-        const toggleLike = async (dreamId) => {
-            const response = await fetch(`/dreams/${dreamId}/like`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({}),
-            });
+const toggleLike = async (dreamId) => {
+    const response = await fetch(`/dreams/${dreamId}/like`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({}),
+    });
 
-            if (response.ok) {
-                const data = await response.json();
-                isLiked.value = !isLiked.value;
-                totalLikes.value = data.total_likes;
-                console.log(totalLikes.value);
-            }
-        };
-
-
-
+    if (response.ok) {
+        const data = await response.json();
+        isLiked.value = !isLiked.value;
+        totalLikes.value = data.total_likes;
+    }
+};
 </script>
  
 <template>
@@ -110,7 +108,6 @@ const editing = ref(false);
               <InputError :message="formComment.errors.message" class="mt-2" />
               <PrimaryButton class="mb-4 mt-4">Comment</PrimaryButton>
             </form>
-
 
             <div class="text-sm rounded border border-gray-300">
               <div v-if="dream.comments.length">

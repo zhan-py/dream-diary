@@ -4,10 +4,9 @@ import Dream from '@/Components/Dream.vue';
 import InputError from '@/Components/InputError.vue';
 import PrimaryButton from '@/Components/PrimaryButton.vue';
 import { useForm, Head } from '@inertiajs/vue3';
-
 import { defineProps } from 'vue';
+
 const props = defineProps(['dreams']);
-console.log(props.dreams); 
 
 const form = useForm({
     message: '',

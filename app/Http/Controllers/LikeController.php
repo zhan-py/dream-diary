@@ -10,19 +10,6 @@ use Illuminate\Http\JsonResponse;
 
 class LikeController extends Controller
 {
-   
-    // public function toggle(Dream $dream): RedirectResponse
-    // {
-    //   if ($dream->likes()->where('user_id', auth()->id())->exists()) {
-    //     $dream->likes()->detach(auth()->id());
-    //   } else {
-    //     $dream->likes()->attach(auth()->id());
-    //   }
-      
-    //   return redirect()->back();
-    //   //return redirect(route('dreams.index'));
-    // }
-
     public function toggle(Dream $dream): JsonResponse
     {
         $user = auth()->user();
@@ -40,6 +27,21 @@ class LikeController extends Controller
         return response()->json([
             'is_liked' => $isLiked,
             'total_likes' => $totalLikes,
+        ]);
+    }
+
+    public function check(Dream $dream): JsonResponse
+    {
+        $user = auth()->user();
+        
+        if ($dream->likes()->where('user_id', $user->id)->exists()) {
+            $isLiked = true;
+        } else {
+            $isLiked = false;
+        }
+
+        return response()->json([
+            'is_liked' => $isLiked,
         ]);
     }
     
