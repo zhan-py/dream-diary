@@ -25,13 +25,13 @@ const editing = ref(false);
 const isLiked = ref(false);
 const totalLikes = ref(props.dream.likes_count);
 
-onMounted(async () => {
-    const response = await fetch(`/dreams/${props.dream.id}/check`);
-    if (response.ok) {
-        const data = await response.json();
-        isLiked.value = data.is_liked;
-    }
-});
+// onMounted(async () => {
+//     const response = await fetch(`/dreams/${props.dream.id}/check`);
+//     if (response.ok) {
+//         const data = await response.json();
+//         isLiked.value = data.is_liked;
+//     }
+// });
 
 const toggleLike = async (dreamId) => {
     const response = await fetch(`/dreams/${dreamId}/like`, {
